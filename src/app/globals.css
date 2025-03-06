@@ -1,26 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@font-face {
+  font-family: 'Calibre';
+  src: url('/fonts/Calibre-Regular.woff2') format('woff2'),
+       url('/fonts/Calibre-Regular.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+@font-face {
+  font-family: 'SF Mono';
+  src: url('/fonts/SFMono-Regular.woff2') format('woff2'),
+       url('/fonts/SFMono-Regular.woff') format('woff');
+  font-weight:normal;
+  font-style: normal;
+}
+.font-title {
+  font-family: 'Calibre', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.font-mono {
+  font-family: 'SF Mono', monospace;
+}
+
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', sans-serif;
+  background-color: #0a192f;
+  color: #ccd6f6;
+}
+
+/* Force Tailwind Hover Fix */
+nav a {
+  transition: all 0.3s ease-in-out;
+}
+
+nav a:hover {
+  color: #64ffda !important;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.animate-fadeOut {
+  animation: fadeOut 1s ease-in-out forwards;
+  animation-delay: 2s; /* Matches preloader timeout */
+}
+
+.animate-pulse {
+  animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.1);
+  }
 }
