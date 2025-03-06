@@ -57,8 +57,9 @@ export default function Navbar() {
 
         {/* Resume Button */}
         <Link
-          href="/resume.pdf"
+          href="https://drive.google.com/file/d/1zCpfsOyP7dH9fca3tw-L-vjHPpVaWT_6/view?usp=sharing"
           target="_blank"
+          rel="noopener noreferrer"
           className="relative inline-flex items-center border border-[#64ffda] px-4 py-2 rounded-md text-[#64ffda] font-mono transition-all duration-500 ease-in-out group overflow-hidden"
         >
           <span className="relative z-10 transition-all duration-500 ease-in-out group-hover:text-[#0a192f]">
