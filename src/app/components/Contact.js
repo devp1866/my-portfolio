@@ -7,12 +7,12 @@ export default function Contact() {
       className="h-screen flex flex-col justify-center items-center text-center px-6"
     >
       <h2 className="text-teal-300 text-sm font-semibold tracking-widest mb-4">
-        04. What's Next?
+        04. What&apos;s Next?
       </h2>
       <h3 className="text-[#ccd6f6] text-5xl font-bold mb-5">Get In Touch</h3>
       <p className="text-[#8892b0] text-lg max-w-lg mb-12">
-        Although I'm not currently looking for any new opportunities, my inbox
-        is always open. Whether you have a question or just want to say hi, I'll
+        Although I&apos;m not currently looking for any new opportunities, my inbox
+        is always open. Whether you have a question or just want to say hi, I&apos;ll
         try my best to get back to you!
       </p>
 

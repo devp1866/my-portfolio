@@ -44,7 +44,7 @@ export default function Projects() {
       <div className="max-w-6xl mx-auto px-4">
         {/* Section Title */}
         <h2 className="text-3xl font-bold text-[#ccd6f6] mb-12 flex ml-0 items-center whitespace-nowrap">
-          <span className="text-[#64ffda] text-lg mr-3">03.</span>Some Things I've Built
+          <span className="text-[#64ffda] text-lg mr-3">03.</span>Some Things I&apos;ve Built
           <div className="ml-5 h-[1px] w-3xs bg-[#233554]"></div>
         </h2>
 

@@ -50,7 +50,7 @@ export default function Experience() {
         <section id="experience" className="w-full min-h-screen flex flex-col justify-center max-w-5xl mx-auto px-8 lg:px-24 py-24">
             {/* Section Title */}
             <h2 className="text-[#ccd6f6] text-3xl font-bold flex items-center mb-15">
-                <span className="text-[#64ffda] text-lg mr-3">02.</span> Where I've Worked
+                <span className="text-[#64ffda] text-lg mr-3">02.</span> Where I&apos;ve Worked
                 <span className="ml-5 w-1/4 h-[1px] bg-[#233554]"></span>
             </h2>
 

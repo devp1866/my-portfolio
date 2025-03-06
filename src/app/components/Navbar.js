@@ -28,7 +28,7 @@ export default function Navbar() {
       } z-50`}
     >
       {/* Logo */}
-      <a
+      <Link
         href="/"
         className="relative flex items-center justify-center border border-[#64ffda] text-lg w-12 h-12 rounded-xl text-[#64ffda] font-mono transition-all duration-500 ease-in-out group overflow-hidden"
       >
@@ -36,7 +36,7 @@ export default function Navbar() {
           D
         </span>
         <span className="absolute inset-0 bg-[#64ffda] w-full h-full transform -translate-x-full -translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>
-      </a>
+      </Link>
 
       {/* Navbar Links */}
       <nav className="hidden md:flex items-center space-x-8 text-[#ccd6f6] text-sm font-mono">
@@ -56,7 +56,7 @@ export default function Navbar() {
         ))}
 
         {/* Resume Button */}
-        <a
+        <Link
           href="/resume.pdf"
           target="_blank"
           className="relative inline-flex items-center border border-[#64ffda] px-4 py-2 rounded-md text-[#64ffda] font-mono transition-all duration-500 ease-in-out group overflow-hidden"
@@ -65,7 +65,7 @@ export default function Navbar() {
             Resume
           </span>
           <span className="absolute inset-0 bg-[#64ffda] w-full h-full transform -translate-x-full -translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>
-        </a>
+        </Link>
       </nav>
     </header>
   );
