@@ -43,7 +43,7 @@ export default function Projects() {
     <section id='projects' className="w-full bg-[#0a192f] text-white py-16">
       <div className="max-w-6xl mx-auto px-4">
         {/* Section Title */}
-        <h2 className="text-3xl font-bold text-[#ccd6f6] mb-12 flex ml-0 items-center whitespace-nowrap">
+        <h2 className="text-3xl font-bold text-[#ccd6f6] mb-12 flex ml-0 items-center whitespace-nowrap overflow-hidden">
           <span className="text-[#64ffda] text-lg mr-3">03.</span>Some Things I&apos;ve Built
           <div className="ml-5 h-[1px] w-3xs bg-[#233554]"></div>
         </h2>
@@ -78,10 +78,10 @@ export default function Projects() {
 
             {/* Project Details */}
             <div className={`lg:col-span-5 lg:order-${project.position === 'right' ? 'lg:order-2' : 'lg:order-1'} order-1 flex flex-col justify-center`}>
-              <div className={`${project.position === 'right' ? 'text-right' : ''} mb-2`}>
+              <div className={`${project.position === 'right' ? 'lg:text-right text-right' : ''} mb-2`}>
                 <span className="text-teal-400 text-sm">Featured Project</span>
               </div>
-              <h3 className={`text-2xl font-semibold text-[#ccd6f6] ${project.position === 'right' ? 'text-right' : ''} mb-6`}>
+              <h3 className={`text-2xl font-semibold text-[#ccd6f6] ${project.position === 'right' ? 'lg:text-right text-right' : ''} mb-6`}>
                 <Link href={project.links.external} className="hover:text-teal-400 transition-colors duration-300">
                   {project.title}
                 </Link>
@@ -89,7 +89,7 @@ export default function Projects() {
 
               {/* Description Box - with position-specific styling */}
               <div className={`bg-[#112240] p-6 rounded-md shadow-xl z-20 mb-6 relative w-full lg:w-[120%] ${project.position === 'right'
-                ? 'transform translate-x-0 lg:-translate-x-22'
+                ? 'lg:transform lg:-translate-x-22 translate-x-0'
                 : 'lg:-translate-x-0'
                 }`}>
                 <p className="text-[#ccd6f6] text-sm leading-relaxed">
@@ -116,14 +116,14 @@ export default function Projects() {
               </div>
 
               {/* Tech Stack */}
-              <div className={`flex flex-wrap ${project.position === 'right' ? 'justify-end' : ''} gap-x-4 gap-y-2 text-[#ccd6f6] text-sm mt-2`}>
+              <div className={`flex flex-wrap ${project.position === 'right' ? 'lg:justify-end justify-end' : ''} gap-x-4 gap-y-2 text-[#ccd6f6] text-sm mt-2`}>
                 {project.technologies.map((tech, techIndex) => (
                   <span key={techIndex}>{tech}</span>
                 ))}
               </div>
 
               {/* Links */}
-              <div className={`flex ${project.position === 'right' ? 'justify-end' : ''} space-x-5 mt-6`}>
+              <div className={`flex ${project.position === 'right' ? 'lg:justify-end justify-end' : ''} space-x-5 mt-6`}>
                 <Link
                   href={project.links.github}
                   aria-label="GitHub"
@@ -147,7 +147,7 @@ export default function Projects() {
           </div>
         ))}
         {/* Learn More button positioned at the bottom right of the section with translation effect */}
-        <div className="flex justify-end mt-4">
+        <div className="flex justify-center lg:justify-end mt-4">
           <Link
             href="#"
             className="relative inline-flex items-center border border-[#64ffda] px-6 py-3 rounded text-[#64ffda] font-mono transition-all duration-500 ease-in-out group overflow-hidden"
@@ -158,8 +158,43 @@ export default function Projects() {
             <span className="absolute inset-0 bg-[#64ffda] w-full h-full transform -translate-x-full -translate-y-full group-hover:translate-x-0 group-hover:translate-y-0 transition-transform duration-500 ease-in-out"></span>
           </Link>
         </div>
-
       </div>
+
+      {/* Mobile-specific styles */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          #projects {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+          }
+          
+          #projects h2 {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            white-space: nowrap;
+            overflow: hidden;
+          }
+          
+          #projects h2 .ml-5 {
+            width: 30%;
+          }
+          
+          #projects .grid {
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+          }
+          
+          #projects .text-2xl {
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+          }
+          
+          #projects .bg-\\[\\#112240\\] {
+            width: 100% !important;
+            transform: none !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

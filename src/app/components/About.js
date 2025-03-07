@@ -16,30 +16,23 @@ export default function About() {
         {/* Text Container - Slightly Wider */}
         <div className="w-full md:w-[70%] text-lg text-[#8892b0] leading-relaxed space-y-4">
           <p>
-            Hello! My name is [Your Name], and I love building things that live
-            on the internet. My interest in web development started back in
-            [year] when I discovered HTML & CSS, which led me to explore modern
-            frameworks and libraries. Fast-forward to today, I’ve had the opportunity to work on a variety
-            of projects, including interactive web apps, scalable backend
-            systems, and optimized performance for user-friendly experiences.
+          Hey there! I'm Devkumar Patel, a tech enthusiast who loves experimenting with code and exploring new possibilities in Web3, machine learning, and software development. My journey started with curiosity—tinkering with websites, breaking things (a lot), and figuring out how to make them better. The thrill of problem-solving and continuous learning keeps me inspired.
           </p>
           <p>
-            Fast-forward to today, I’ve had the opportunity to work on a variety
-            of projects, including interactive web apps, scalable backend
-            systems, and optimized performance for user-friendly experiences.
+          Fast forward to today, I've worked on a variety of projects, from building data-driven models to exploring decentralized technologies, constantly pushing myself to learn and grow.
           </p>
           <p>
-            Here are a few technologies I’ve been working with recently:
+            Here are a few technologies I've been working with recently:
           </p>
 
           {/* Skills List */}
           <ul className="grid grid-cols-2 text-sm font-mono text-[#64ffda] mt-4">
             <li>⚡ JavaScript (ES6+)</li>
             <li>⚡ React & Next.js</li>
-            <li>⚡ Tailwind CSS</li>
-            <li>⚡ TypeScript</li>
-            <li>⚡ Node.js</li>
-            <li>⚡ GraphQL</li>
+            <li>⚡ Machine learning</li>
+            <li>⚡ Python</li>
+            <li>⚡ Solana</li>
+            <li>⚡ Linux</li>
           </ul>
         </div>
 
@@ -60,6 +53,44 @@ export default function About() {
           <div className="absolute inset-0 border-2 border-[#64ffda] rounded-lg -translate-x-2 -translate-y-2 transition duration-300 group-hover:translate-x-0 group-hover:translate-y-0"></div>
         </div>
       </div>
+
+      {/* Mobile-specific styles */}
+      <style jsx>{`
+        @media (max-width: 768px) {
+          #about {
+            padding: 16px 12px;
+          }
+          
+          #about h2 {
+            margin-left: 4px;
+            font-size: 1.5rem;
+          }
+          
+          #about h2 span {
+            font-size: 1rem;
+          }
+          
+          #about .flex-col {
+            align-items: center;
+            gap: 2rem;
+          }
+          
+          #about .relative.group {
+            width: 220px;
+            height: 270px;
+            margin: 0 auto;
+          }
+          
+          #about .text-lg {
+            font-size: 1rem;
+          }
+          
+          #about .grid {
+            gap: 0.5rem;
+            font-size: 0.75rem;
+          }
+        }
+      `}</style>
     </section>
   );
 }
