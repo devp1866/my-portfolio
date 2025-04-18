@@ -1,27 +1,50 @@
 "use client";
+import { useState, useEffect } from "react";
 
-import { useEffect } from "react";
-import { motion } from "framer-motion";
+const Preloader = ({ onComplete }) => {
+  const [fadeOut, setFadeOut] = useState(false);
 
-export default function Preloader({ onComplete }) {
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onComplete();
-    }, 3000); // 3 seconds
+    // Dynamically import and register the helix loader
+    const loadHelix = async () => {
+      const { helix } = await import('ldrs');
+      helix.register();
+    };
+    
+    loadHelix();
 
-    return () => clearTimeout(timeout);
+    // Main timer for the preloader
+    const timer = setTimeout(() => {
+      setFadeOut(true);
+      setTimeout(onComplete, 800); // Calls onComplete after fade-out
+    }, 2000); // Preloader duration
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [onComplete]);
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 w-full h-full bg-[#0a192f] flex items-center justify-center z-50"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.5, delay: 2.5 }}
+    <div
+      className={`fixed inset-0 flex flex-col items-center justify-center bg-[#0a192f] z-50 transition-opacity duration-800 ${
+        fadeOut ? "opacity-0 pointer-events-none" : "opacity-100"
+      }`}
     >
-      {/* Spinner */}
-      <div className="w-20 h-20 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
-    </motion.div>
+      <div className="preloader-container">
+        {/* Helix loader from ldrs */}
+        <l-helix
+          size="130"
+          speed="2.5"
+          color="#64ffda"
+        ></l-helix>
+      </div>
+      
+      {/* Loading text */}
+      {/* <div className="mt-4 text-teal-300 text-md tracking-widest">
+        LOADING
+      </div> */}
+    </div>
   );
-}
+};
+
+export default Preloader;

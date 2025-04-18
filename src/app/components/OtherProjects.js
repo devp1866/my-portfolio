@@ -257,7 +257,7 @@ export default function OtherProjects() {
         Other Noteworthy Projects
       </h2>
       <div className="text-center my-3">
-        <a href="#" className="text-teal-300 text-sm hover:underline">
+        <a href="/archive" className="text-teal-300 text-sm hover:underline">
           View the archives
         </a>
       </div>
