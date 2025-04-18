@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Head from "next/head";
 
@@ -8,34 +8,44 @@ export default function Navbar() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Optimize scroll event with useEffect cleanup and throttling
-  useEffect(() => {
-    let throttleTimer;
-    
-    const handleScroll = () => {
-      if (throttleTimer) return;
-      
-      throttleTimer = setTimeout(() => {
-        const currentScrollY = window.scrollY;
-        if (currentScrollY > lastScrollY && currentScrollY > 50) {
-          setHidden(true); // Hide navbar when scrolling down
-        } else {
-          setHidden(false); // Show navbar when scrolling up
-        }
-        setLastScrollY(currentScrollY);
-        throttleTimer = null;
-      }, 100);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(throttleTimer);
-    };
+  // Optimize scroll event with useCallback for improved performance
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+    if (currentScrollY > lastScrollY && currentScrollY > 50) {
+      setHidden(true); // Hide navbar when scrolling down
+    } else {
+      setHidden(false); // Show navbar when scrolling up
+    }
+    setLastScrollY(currentScrollY);
   }, [lastScrollY]);
-
+  
+  // Implement throttled scroll listener with RAF for better performance
   useEffect(() => {
-    // Prevent scrolling when mobile menu is open
+    let rafId;
+    let ticking = false;
+    
+    const scrollListener = () => {
+      if (!ticking) {
+        rafId = window.requestAnimationFrame(() => {
+          handleScroll();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", scrollListener, { passive: true });
+    
+    return () => {
+      window.removeEventListener("scroll", scrollListener);
+      if (rafId) {
+        window.cancelAnimationFrame(rafId);
+      }
+    };
+  }, [handleScroll]);
+
+  // Handle body scroll lock when mobile menu is open
+  useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
@@ -47,19 +57,23 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // Function to handle page reload
+  // Function to handle page reload with memory caching
   const handleLogoClick = (e) => {
-    e.preventDefault(); // Prevent default Link behavior
+    e.preventDefault();
     window.location.reload();
   };
 
+  // Navigation items for reuse
+  const navigationItems = [
+    { name: "About", id: "about" },
+    { name: "Experience", id: "experience" },
+    { name: "Projects", id: "projects" },
+    { name: "Contact", id: "contact" }
+  ];
+
   return (
     <>
-      <Head>
-        <meta name="description" content="Portfolio and professional experience of a web developer" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="canonical" href="https://yourdomain.com" />
-      </Head>
+      
       
       <header
         className={`fixed top-0 w-full px-4 sm:px-8 lg:px-16 py-5 bg-[#0a192f] bg-opacity-90 backdrop-blur-md flex justify-between items-center transition-transform duration-300 ${
@@ -86,18 +100,18 @@ export default function Navbar() {
           className="hidden md:flex items-center space-x-8 text-[#ccd6f6] text-sm font-mono"
           aria-label="Desktop navigation"
         >
-          {["About", "Experience", "Projects", "Contact"].map((item, index) => (
+          {navigationItems.map((item, index) => (
             <Link
               key={index}
-              href={`#${item.toLowerCase()}`}
+              href={`#${item.id}`}
               className="group flex items-center space-x-2 transition-all duration-300 ease-in-out"
-              aria-label={`Navigate to ${item} section`}
+              aria-label={`Navigate to ${item.name} section`}
             >
               <span className="text-[#64ffda] transition-all duration-300 ease-in-out transform group-hover:-translate-y-1">
                 {`0${index + 1}.`}
               </span>
               <span className="text-[#ccd6f6] transition-all duration-300 ease-in-out transform group-hover:-translate-y-1 group-hover:text-[#64ffda]">
-                {item}
+                {item.name}
               </span>
             </Link>
           ))}
@@ -124,6 +138,7 @@ export default function Navbar() {
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-menu"
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          type="button"
         >
           <div className="flex flex-col justify-between w-6 h-5">
             <span className={`bg-[#64ffda] h-0.5 w-full transition-transform duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`}></span>
@@ -143,19 +158,19 @@ export default function Navbar() {
           className="flex flex-col items-center space-y-8 text-[#ccd6f6] text-lg font-mono"
           aria-label="Mobile navigation"
         >
-          {["About", "Experience", "Projects", "Contact"].map((item, index) => (
+          {navigationItems.map((item, index) => (
             <Link
               key={index}
-              href={`#${item.toLowerCase()}`}
+              href={`#${item.id}`}
               className="group flex flex-col items-center transition-all duration-300 ease-in-out"
               onClick={() => setMobileMenuOpen(false)}
-              aria-label={`Navigate to ${item} section`}
+              aria-label={`Navigate to ${item.name} section`}
             >
               <span className="text-[#64ffda] mb-1">
                 {`0${index + 1}.`}
               </span>
               <span className="text-[#ccd6f6] group-hover:text-[#64ffda]">
-                {item}
+                {item.name}
               </span>
             </Link>
           ))}

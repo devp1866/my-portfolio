@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 
+// Experience data separated for better organization
 const experienceData = [
     {
         company: "IIT Madras",
         name: "IIT Madras (Online)",
-        Link: "https://study.iitm.ac.in/ds/index.html",
+        link: "https://study.iitm.ac.in/ds/index.html",
         position: "Student",
         duration: "Sep 2023 — Present",
         details: [
@@ -19,7 +20,7 @@ const experienceData = [
     {
         company: "LDRP-ITR",
         name: "LDRP-ITR Gandhinagar",
-        Link: "https://www.ldrp.ac.in/",
+        link: "https://www.ldrp.ac.in/",
         position: "Student",
         duration: "July 2023 — May 2027",
         details: [
@@ -31,7 +32,7 @@ const experienceData = [
     {
         company: "JNV Mehsana",
         name: "Jawahar Navodaya Vidyalaya",
-        Link: "https://navodaya.gov.in/nvs/nvs-school/MEHSANA/en/home",
+        link: "https://navodaya.gov.in/nvs/nvs-school/MEHSANA/en/home",
         position: "Student",
         duration: "July 2016 — May 2023",
         details: [
@@ -45,6 +46,9 @@ const experienceData = [
 
 export default function Experience() {
     const [selectedJob, setSelectedJob] = useState(0);
+    
+    // Memoized selected job data to prevent unnecessary re-renders
+    const currentJob = useMemo(() => experienceData[selectedJob], [selectedJob]);
 
     return (
         <section id="experience" className="w-full min-h-screen flex flex-col justify-center max-w-5xl mx-auto px-8 lg:px-24 py-24">
@@ -62,20 +66,28 @@ export default function Experience() {
                             <button
                                 key={index}
                                 onClick={() => setSelectedJob(index)}
-                                className={`block px-5 py-4 w-full text-left text-base font-mono transition-all duration-300 ${selectedJob === index
-                                    ? "text-[#64ffda] bg-[#233554]"
-                                    : "text-[#8892b0] hover:bg-[#112240]"
-                                    }`}
+                                className={`block px-5 py-4 w-full text-left text-base font-mono transition-all duration-300 ${
+                                    selectedJob === index
+                                        ? "text-[#64ffda] bg-[#233554]"
+                                        : "text-[#8892b0] hover:bg-[#112240]"
+                                }`}
+                                aria-selected={selectedJob === index}
                             >
                                 {job.company}
                             </button>
                         ))}
                     </div>
                     {/* Sidebar Indicator */}
-                    <div className="absolute left-0 top-0 w-[2px] bg-[#233554] hidden md:block" style={{ height: `${experienceData.length * 56}px` }}></div>
+                    <div 
+                        className="absolute left-0 top-0 w-[2px] bg-[#233554] hidden md:block" 
+                        style={{ height: `${experienceData.length * 56}px` }}
+                    ></div>
                     
                     {/* Mobile Indicator (horizontal) */}
-                    <div className="md:hidden absolute bottom-0 left-0 h-[2px] bg-[#233554]" style={{ width: '100%' }}></div>
+                    <div 
+                        className="md:hidden absolute bottom-0 left-0 h-[2px] bg-[#233554]" 
+                        style={{ width: '100%' }}
+                    ></div>
                 </div>
 
                 {/* Right Content - Full Height */}
@@ -83,21 +95,24 @@ export default function Experience() {
                     {/* Position + Company */}
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
                         <h3 className="text-[#ccd6f6] text-lg font-semibold">
-                            {experienceData[selectedJob].position}{" "}
+                            {currentJob.position}{" "}
                             <Link
-                                href={experienceData[selectedJob].Link}
+                                href={currentJob.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`Visit ${currentJob.name} website`}
                             >
-                                <span className="text-[#64ffda]">@ {experienceData[selectedJob].name}</span>
+                                <span className="text-[#64ffda]">@ {currentJob.name}</span>
                             </Link>
                         </h3>
-                        <p className="text-[#8892b0] text-sm mt-1 sm:mt-0">{experienceData[selectedJob].duration}</p>
+                        <p className="text-[#8892b0] text-sm mt-1 sm:mt-0">{currentJob.duration}</p>
                     </div>
 
                     {/* Description */}
                     <ul className="text-[#8892b0] text-base space-y-4 leading-relaxed">
-                        {experienceData[selectedJob].details.map((detail, idx) => (
+                        {currentJob.details.map((detail, idx) => (
                             <li key={idx} className="flex items-start space-x-3">
-                                <span className="text-[#64ffda] flex-shrink-0">▹</span>
+                                <span className="text-[#64ffda] flex-shrink-0" aria-hidden="true">▹</span>
                                 <p>{detail}</p>
                             </li>
                         ))}

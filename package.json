@@ -14,11 +14,13 @@
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-icons": "^5.5.0"
+    "react-icons": "^5.5.0",
+    "react-intersection-observer": "^9.16.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4.0.9",
+    "@types/minimatch": "^5.1.2",
     "eslint": "^9",
     "eslint-config-next": "15.2.1",
     "tailwindcss": "^4.0.9"
